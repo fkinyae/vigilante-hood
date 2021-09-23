@@ -1,0 +1,33 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}"> 
+  {% endblock %}
+
+  {% block content %}
+  <div class="signupform">
+  <form method="post">
+    {% csrf_token %}
+    <div class="colors">   
+      <center><h5 style="font-weight: bold;">Vigilante Hood</h5> </center>   
+
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+      {% endfor %}
+
+    <button type="submit" class="btn btn-primary btn-sm D-block mx-auto">Sign up</button>
+    <div>
+  </form>
+</div>
+  {% endblock %}
+
