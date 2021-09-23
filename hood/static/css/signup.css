@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap');
+
+body {
+  margin-top: 8%;
+  background: url("/static/img/fresian.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    font-family: 'Scheherazade New', serif;
+}
+
+.signupform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.colors {
+  padding: 10px;
+  border-radius: 15px;
+  background: rgb(22,22,201);
+background: linear-gradient(90deg, rgba(22,22,201,0.881691556016938) 54%, rgba(24,13,216,1) 100%, rgba(0,212,255,1) 100%);
+}
