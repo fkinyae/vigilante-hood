@@ -1,0 +1,41 @@
+{% load bootstrap4  %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+                
+<div class="container mt-4" style="margin-left: 35%;">
+    <div class="row">
+       
+        <div class="col-md-4 mt-4">
+            <div class="card colors">
+                <div class="card-title mt-4" style="margin-left: 15%; font-weight: bold; font-size: 130%; ">
+                    Vigilante Hood
+                    User Login
+
+                </div>
+                
+                <div class="card-body mb-3 mr-3 ml-3">
+                    <form action="" method="post" novalidate>
+                        {% csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <button type="submit" class="btn btn-primary btn-sm D-block mx-auto"> Log In</button>
+                    </form>
+                </div>
+                <a href="" class="D-block mx-auto mb-3" style="color: white;">Forgot password? </a>
+            </div>
+            <div class="card mt-2 colors" >
+                <div class="card-body mt-3 mb-3 mr-2 ml-4" style>
+                    Don't have an account? <a href="{% url 'signup' %}" style="color: white;">Sign up</a>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+{% endblock %}
