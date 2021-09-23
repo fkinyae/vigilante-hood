@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('hood.urls')),
+    path('accounts/', include('registration.backends.simple.urls'))
 ]
