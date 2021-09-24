@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm, NeighbourHoodForm
+from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm, NeighbourHoodForm, BusinessForm
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_text,force_bytes,DjangoUnicodeDecodeError
 from django.contrib.sites.shortcuts import get_current_site
@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from hood import forms
-from .models import NeighbourHood
+from .models import Business, NeighbourHood
 
 
 
@@ -67,10 +67,13 @@ def activate_account(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return HttpResponse('Your account has been activate successfully')
+        #return HttpResponse('Your account has been activate successfully')
+        return render(request, "email/successful.html")
+
         
     else:
         return HttpResponse('Activation link is invalid!')
+        #return render(request, "email/invalid.html")
     
     
     
@@ -134,6 +137,39 @@ def hood_view(request):
             "form":form
         }    
     return render(request,"hood.html",context)
+
+def each_hood(request, id):
+    hood = NeighbourHood.objects.get(id=id)
+    
+    if request.method == "POST":
+        form = BusinessForm(request.POST)
+        if form.is_valid():
+            business = form.save( commit=False)
+            business.owner = request.user.profile
+            business.hood =  hood
+            business.save()
+            return redirect('all_businesses', hood.id)
+    else:
+        form = BusinessForm(instance=request.user)    
+    context = {
+        "form" : form,
+    }    
+    return render(request, "business.html", context)
+
+def all_businesses(request, id):
+    
+    businesses = Business.objects.filter(hood=id)
+    hood = NeighbourHood.objects.get(id=id)
+
+    
+    context = {
+        "businesses" : businesses,
+        "hood" : hood
+    }    
+    return render(request, "all_businesses.html", context)
+    
+
+
 
 
 
