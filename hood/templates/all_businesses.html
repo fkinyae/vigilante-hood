@@ -1,0 +1,58 @@
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/all_businesses.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+    <div id="row">
+
+      <span style="color:maroon; font-weight: bold;">Police Patrol Tel : </span><span>+254{{hood.police_call}}</span> 
+
+      <span style="color:maroon; font-weight: bold;">Health Dept Tel : </span><span>+254{{hood.hospital_call}}</span> 
+
+      <span style="color:maroon; font-weight: bold;">Fire Ext Tel : </span><span>+254{{hood.Fire_call}}</span> 
+
+        <a href="{% url 'business' hood.id %}" class="btn btn-info new_hood">New Business</a>
+      </div>
+ 
+  <div class="container">
+   
+    <div class="details">
+     
+      <div class="row">
+        {% for business in businesses %}
+        <div class="card shadow p-3 mb-5 bg-blue rounded">
+          <div class="card-body">
+              <h5 class="card-title text-center">Business Name:</h5>
+              <p class="card-text text-center">{{business.name}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item"><span  class="item_title">Email  :  </span>  <span>{{business.emails}}</span>
+              </li>
+              <li class="list-group-item"><span class="item_title" >Brief Summary   :  </span>  <span>{{business.brief}}</span>
+              </li>
+          </ul>
+
+    </div>
+    {% empty %}
+            </div>
+            <div class="row">
+                <h4 class="text-center">Unfortunately!! There are No Registered Business Currently!</h4>
+            </div>
+    {% endfor %}
+
+    </div>
+    </div>
+
+
+  </div>
+</div>
+{% endblock %}
+
+
