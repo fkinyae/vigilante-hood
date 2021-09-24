@@ -10,10 +10,40 @@
 {% block content %}
 {% include 'navbar.html' %}
 <body>
-  <a href="{% url 'hood'  %}" class="btn btn-info">New NeighbourHood</a>
+  <div id="row">
+    <a href="{% url 'hood'  %}" class="btn btn-info new_hood">New NeighbourHood</a>
+  </div>
+  <div class="container">
+   
+    <div class="details">
+     
+      <div class="row">
+        {% for hood in hoods %}
+        <div class="card">
+          <img src="{{hood.hood_pic.url}}" class="w-100 border-bottom" alt="...">
+          <div class="card-body">
+              <h5 class="card-title text-center">NeighbourHood:</h5>
+              <p class="card-text text-center">{{hood.name}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item"><span  class="item_title">Location   :  </span>  <span>{{hood.locality}}</span>
+              </li>
+              <li class="list-group-item"><span class="item_title" >Total Occupants   :  </span>  <span>{{hood.occupants_count}}</span>
+              </li>
+          </ul>
+          <div class="card-body">
+              <a href="#" class="card-link btn btn-info" id="join_btn">Join {{hood.name}}</a>
+          </div>
+      
 
-    <h2 class="text-center">Welcome</h2>
-    
+    </div>
+    {% endfor  %}
+
+    </div>
+    </div>
+
+
+  </div>
 </body>
 {% endblock %}
 
