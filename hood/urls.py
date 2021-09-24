@@ -12,7 +12,8 @@ urlpatterns = [
     path('registration/', include('django_registration.backends.activation.urls')),
     path('registration/', include('django.contrib.auth.urls')),
     path('password_change/', views.PasswordsChangeView.as_view(), name='password_change'),
-    
+    path('profile/',views.view_profile, name='profile'),
+    path('edit-profile/',views.edit_profile, name='edit-profile'),
 
  
 ]
