@@ -138,6 +138,5 @@ EMAIL_PORT = 587
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/' 
+LOGIN_REDIRECT_URL = 'welcome'
+LOGOUT_REDIRECT_URL = 'login'
