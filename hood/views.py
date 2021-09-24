@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserSignUpForm
+from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_text,force_bytes,DjangoUnicodeDecodeError
 from django.contrib.sites.shortcuts import get_current_site
@@ -85,6 +85,35 @@ def login_view(request):
 class    PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
     success_url = reverse_lazy('index')
+    
+def view_profile(request):
+    context = {
+        'user':request.user
+    }    
+    return render (request, "registration/profile.html", context)    
+
+
+def edit_profile(request):
+    if request.method=='POST':
+        user_form=UserUpdateForm(request.POST, instance=request.user)
+        profile_form=ProfileUpdateForm(request.POST, request.FILES,instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile')
+    else:
+        user_form=UserUpdateForm(instance=request.user)   
+        profile_form=ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        "user_form":user_form,
+        "profile_form":profile_form,
+        
+    }
+    return render (request, "registration/edit_profile.html",context)  
+       
+
+    
     
 
 
