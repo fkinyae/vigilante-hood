@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm
+from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm, NeighbourHoodForm
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_text,force_bytes,DjangoUnicodeDecodeError
 from django.contrib.sites.shortcuts import get_current_site
@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
+
+from hood import forms
 
 
 
@@ -111,6 +113,24 @@ def edit_profile(request):
         
     }
     return render (request, "registration/edit_profile.html",context)  
+
+
+def hood_view(request):
+    if request.method == "POST":
+        form = NeighbourHoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            hood = form.save(commit=False)
+            hood.admin = request.user.profile
+            hood.save()
+            return redirect('welcome')
+    else:
+            form = NeighbourHoodForm( instance = request.user.profile)
+        
+    context = {
+            "form":form
+        }    
+    return render(request,"hood.html",context)
+            
        
 
     
