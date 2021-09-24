@@ -1,0 +1,84 @@
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/hood.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<body>
+
+    <form  action="{%url 'hood'%}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="container">
+          <div class="hood_form">
+                
+                <span class="row  center" style="display:inline-block; margin-left: 30%;">
+                  <label for=foo style="display:block; font-weight: bold;">Neighbourhood Picture:</label>
+                  {{ form.hood_pic }}
+                </span>
+                <div class="row padding">
+                        <div class="col-md-6">
+                          <span class="row  center" style="display:inline-block; margin-left: 10%; ">
+                            <label for=foo style="display:block; font-weight: bold;">Name:</label>
+                            {{form.name}}
+                          </span>
+                        </div>
+                        <div class="col-md-6">
+                          <span class="row  center" style="display:inline-block; ">
+                            <label for=foo style="display:block; font-weight: bold;">Location:</label>
+                            {{form.locality}}
+                          </span>
+                        </div>
+
+                </div>
+                <div class="row padding">
+                  <div class="col-md-6">
+                    <span class="row  center" style="display:inline-block; margin-left: 10%; ">
+                      <label for=foo style="display:block; font-weight: bold;">Occupants Count:</label>
+                      {{form.occupants_count}}
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="row  center" style="display:inline-block; ">
+                      <label for=foo style="display:block; font-weight: bold;">Police Contact:</label>
+                      {{form.police_call}}
+                    </span>
+                  </div>
+                  </div>
+
+                  <div class="row padding">
+                    <div class="col-md-6">
+                      <span class="row  center" style="display:inline-block; margin-left: 10%; ">
+                        <label for=foo style="display:block; font-weight: bold;">Hospital Contact:</label>
+                        {{form.hospital_call}}
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="row  center" style="display:inline-block; ">
+                        <label for=foo style="display:block; font-weight: bold;">Fire Dept Contact:</label>
+                        {{form.Fire_call}}
+                      </span>
+                    </div>
+                    </div>
+
+                <div class="row center">
+                  <button input type="submit" class="btn btn-info" value="Post" style="margin: 8px;" >Create Hood
+                  </button>
+
+                </div>
+            
+
+          </div>
+
+      </div>
+      
+    </form>
+    
+</body>
+{% endblock %}
+
+
