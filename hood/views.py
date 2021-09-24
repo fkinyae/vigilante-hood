@@ -12,8 +12,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
-
 from hood import forms
+from .models import NeighbourHood
 
 
 
@@ -21,7 +21,11 @@ from hood import forms
 # Create your views here.
 @login_required(login_url='/registration/login/')
 def welcome(request):
-    return render(request, "index.html")
+    hoods = NeighbourHood.objects.all()
+    context = {
+        "hoods" : hoods,
+    }
+    return render(request, "index.html", context)
 
 #Usersignup view
 def usersignup(request):
@@ -130,6 +134,9 @@ def hood_view(request):
             "form":form
         }    
     return render(request,"hood.html",context)
+
+
+
             
        
 
