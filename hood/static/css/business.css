@@ -1,0 +1,24 @@
+.container {
+    margin-top: 5%;
+    
+}
+
+.hood_form {
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: aqua;
+
+
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    display:inline-block
+}
+
+.padding {
+    padding-left: 25px;
+}
