@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
-from django.forms.widgets import NumberInput, TextInput, Textarea
-from .models import Profile, NeighbourHood
+from django.forms.widgets import EmailInput, NumberInput, TextInput, Textarea
+from .models import Profile, NeighbourHood, Business
 
 
 #usersignup form
@@ -39,9 +39,18 @@ class NeighbourHoodForm(forms.ModelForm):
             'hospital_call' : NumberInput(attrs={'class' : 'form-control', 'placeholder' : 'Hospital Contact'}),
             'Fire_call' : NumberInput(attrs={'class' : 'form-control', 'placeholder' : 'Fire Department Tel.'}),
 
-
-
-
-
         }
+        
+        
+class BusinessForm(forms.ModelForm):
+    
+    class Meta:
+        model = Business
+        exclude = ('owner', 'hood')   
+        fields = ['name', 'brief', 'emails'] 
+        widgets = {
+            'name' : TextInput(attrs={'class' : 'form-control', 'placeholder' : 'name of neighbourhood'}),
+            'brief' : Textarea(attrs={'class' : 'form-control', 'placeholder' : 'brief summary of the business', 'rows' : 3, 'cols' : 50}),
+            'emails' : EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Business email' })  
+        }    
     
