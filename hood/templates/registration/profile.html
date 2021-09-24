@@ -1,0 +1,64 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}"> 
+  {% endblock %}
+
+
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container text-center">
+
+    {% if user.is_authenticated  %}
+
+                <h2>{% block tittle  %} My Profile {% endblock %}</h2>
+                <img class="rounded-circle " src="{{user.profile.profile_pic.url}}"  id="profile_pic" alt="">
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-4" style="margin-left: 20%;">
+                        <p style="font-weight: bold;">Username: </p>
+                        {{user}}
+                        <p style="font-weight: bold;">First Name: </p>
+                        {{user.first_name}}
+                        <p style="font-weight: bold;">Email: </p>
+                        {{ user.email }}
+                        <p style="font-weight: bold;">Bio: </p>
+                        {{user.profile.bio}}
+                          
+
+                    </div>
+                    <div class="col-md-4">
+                        <p style="font-weight: bold;">Last Name: </p>
+                        {{user.last_name}}
+                        <p style="font-weight: bold;">Location: </p>
+                        {{user.profile.location}}
+                        <p style="font-weight: bold;">NeighbourHood Name: </p>
+                        {{user.profile.hood_name}}
+                        <p style="font-weight: bold;">Date Joined: </p>
+                        {{user.date_joined}}
+                        <div>
+                            <a href="{% url 'edit-profile' %}" class="btn btn-primary">Update Profile</a>
+                        </div>
+
+                    </div>
+                    <hr>
+
+                </div>
+                
+                
+
+    {% else %}
+
+<p>Login to View Your profile</p>
+
+{% endif  %}
+
+
+</div>
+
+
+{% endblock %}
