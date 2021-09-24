@@ -13,7 +13,9 @@
 
 .card {
     width: 330px !important;
-     margin: 15px !important;
+    margin: 15px !important;
+    transform: translateZ(0) !important;
+
 }
 
 .container {
