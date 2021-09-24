@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import UserSignUpForm
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_text,force_bytes,DjangoUnicodeDecodeError
@@ -10,6 +10,9 @@ from  django.http import HttpResponse,Http404
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
+
 
 
 
@@ -78,6 +81,10 @@ def login_view(request):
             return render(request, "registration/login.html",context)
         login(request,user)
     return render(request, "registration/login.html")
+
+class    PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('index')
     
 
 
