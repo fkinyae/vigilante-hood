@@ -1,0 +1,26 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/profile2.css' %}"> 
+  {% endblock %}
+
+  {% block content %}
+  {% include 'navbar.html' %}
+  <div class="signupform">
+      
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+           
+              {{user_form}}
+              {{profile_form}}
+
+                    <button type="submit" value="save" class="btn btn-primary">Update</button>
+            <div>
+          </form>
+
+  
+</div>
+  {% endblock %}
+
