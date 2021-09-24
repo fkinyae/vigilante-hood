@@ -49,5 +49,32 @@ class NeighbourHood(models.Model):
     @classmethod
     def find_neighborhood(cls, neighborhood_id):
         return cls.objects.filter(id=neighborhood_id)
+    
+class Business(models.Model):
+    name = models.CharField(max_length=200,blank=True)
+    brief = models.TextField(max_length=500, blank=True)
+    owner = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    hood = models.ForeignKey('NeighbourHood', on_delete=models.CASCADE)
+    emails = models.EmailField(max_length=200)
+    
+    def __str__(self):
+        return str(self.name)
+    
+    def create_business(self):
+        self.save()
+        
+    def delete_business(self):
+        self.delete()
+        
+    @classmethod
+    def update_business(cls, id):
+        return cls.objects.update(id)
+        
+    @classmethod
+    def find_business(cls, name):
+        return cls.objects.filter(name__icontains=name).all()
+   
+            
+    
 
     
