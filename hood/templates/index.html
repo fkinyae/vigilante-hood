@@ -1,1 +1,19 @@
-<h2>Welcome</h2>
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<body>
+
+    <h2 class="text-center">Welcome</h2>
+    
+</body>
+{% endblock %}
+
+
