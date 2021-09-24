@@ -24,3 +24,30 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+        
+        
+class NeighbourHood(models.Model):
+    name=models.CharField(max_length=200, blank=True)   
+    locality = models.CharField(max_length=200, blank=True)
+    occupants_count = models.IntegerField(null=True, blank=True)
+    admin = models.ForeignKey('Profile',on_delete=models.CASCADE, related_name='hood')     
+    hood_pic = models.ImageField(upload_to = 'hoods/profiles/', default='default.png')
+    police_call = models.IntegerField(null=True, blank=True)
+    hospital_call = models.IntegerField(null=True, blank=True)
+    Fire_call = models.IntegerField(null=True, blank=True)
+    
+    
+    def __str__(self):
+        return str(self.name)
+    
+    def create_neighborhood(self):
+        self.save()
+        
+    def delete_neigborhood(self):
+        self.delete()
+        
+    @classmethod
+    def find_neighborhood(cls, neighborhood_id):
+        return cls.objects.filter(id=neighborhood_id)
+
+    
