@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm, NeighbourHoodForm, BusinessForm
+from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm, NeighbourHoodForm, BusinessForm, PostForm
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_text,force_bytes,DjangoUnicodeDecodeError
 from django.contrib.sites.shortcuts import get_current_site
@@ -167,6 +167,29 @@ def all_businesses(request, id):
         "hood" : hood
     }    
     return render(request, "all_businesses.html", context)
+
+
+
+def write_post(request, id):
+    
+    hood = NeighbourHood.objects.get(id=id)
+    
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post=form.save( commit=False)
+            post.owner=request.user.profile
+            post.hood=hood
+            post.save()
+            return redirect('hood')
+    else:
+        form = PostForm(instance=request.user.profile)
+    context = {
+        "form" : form
+    }        
+    return render(request, "post.html", context)
+
+
     
 
 
