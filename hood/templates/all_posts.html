@@ -1,0 +1,58 @@
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/all_posts.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+    <div id="row">
+
+      <span style="color:maroon; font-weight: bold;">Police Patrol Tel : </span><span>+254{{hood.police_call}}</span> 
+
+      <span style="color:maroon; font-weight: bold;">Health Dept Tel : </span><span>+254{{hood.hospital_call}}</span> 
+
+      <span style="color:maroon; font-weight: bold;">Fire Ext Tel : </span><span>+254{{hood.Fire_call}}</span> 
+
+        <a href="{% url 'all_businesses' hood.id %}" class="btn btn-info new_hood">Business Category</a>
+        <a href="{% url 'write_post' hood.id %}" class="btn btn-info new_hood">New Post</a>
+
+      </div>
+ 
+  <div class="container">
+   
+    <div class="details">
+     
+      <div class="row">
+        {% for post in posts %}
+        <div class="card shadow p-3 mb-5 bg-blue rounded">
+          <div class="card-body">
+              <h5 class="card-title text-center">Post Category :</h5>
+              <p class="card-text text-center" style="font-weight: bold;">{{post.type}}  Alert!!</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item"><span  class="item_title">Post Pitch :  </span>  <span>{{post.description}}</span>
+              </li>
+          </ul>
+
+    </div>
+    {% empty %}
+            </div>
+            <div class="row">
+                <h4 class="text-center">Unfortunately!! There are No Posts Currently!</h4>
+            </div>
+    {% endfor %}
+
+    </div>
+    </div>
+
+
+  </div>
+</div>
+{% endblock %}
+
+
