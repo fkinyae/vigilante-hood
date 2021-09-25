@@ -49,8 +49,8 @@ class BusinessForm(forms.ModelForm):
         exclude = ('owner', 'hood')   
         fields = ['name', 'brief', 'emails'] 
         widgets = {
-            'name' : TextInput(attrs={'class' : 'form-control', 'placeholder' : 'name of neighbourhood'}),
-            'brief' : Textarea(attrs={'class' : 'form-control', 'placeholder' : 'brief summary of the business', 'rows' : 3, 'cols' : 50}),
+            'name' : TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Name of Business'}),
+            'brief' : Textarea(attrs={'class' : 'form-control', 'placeholder' : 'Brief summary of the business', 'rows' : 3, 'cols' : 50}),
             'emails' : EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Business email' })  
         }    
         
