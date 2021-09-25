@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 from django.forms.widgets import EmailInput, NumberInput, TextInput, Textarea
-from .models import Profile, NeighbourHood, Business
+from .models import Posts, Profile, NeighbourHood, Business
 
 
 #usersignup form
@@ -53,4 +53,14 @@ class BusinessForm(forms.ModelForm):
             'brief' : Textarea(attrs={'class' : 'form-control', 'placeholder' : 'brief summary of the business', 'rows' : 3, 'cols' : 50}),
             'emails' : EmailInput(attrs={'class' : 'form-control', 'placeholder' : 'Business email' })  
         }    
+        
+        
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Posts
+        exclude = ('hood', 'owner')  
+        fields = ['type', 'description']
+        widgets = {
+            'description' : Textarea(attrs={'class' : 'form-control', 'placeholder' : 'Briefly describe the post', 'rows' : 3, 'cols' : 50}),
+        }      
     
