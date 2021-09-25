@@ -19,6 +19,7 @@ urlpatterns = [
     path('all_businesses/<int:id>/', views.all_businesses, name = 'all_businesses'),
     path('business/<int:id>/', views.each_hood, name = 'business'),
     path('posts/<int:id>/', views.write_post, name = 'write_post'),
+    path('all_posts/<int:id>/', views.all_posts, name = 'all_posts'),
 
 ]
 
