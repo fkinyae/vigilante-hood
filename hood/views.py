@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from hood import forms
-from .models import Business, NeighbourHood
+from .models import Business, NeighbourHood, Posts
 
 
 
@@ -181,13 +181,25 @@ def write_post(request, id):
             post.owner=request.user.profile
             post.hood=hood
             post.save()
-            return redirect('hood')
+            return redirect('all_posts', hood.id)
     else:
         form = PostForm(instance=request.user.profile)
     context = {
         "form" : form
     }        
     return render(request, "post.html", context)
+
+def all_posts(request, id):
+    
+    hood = NeighbourHood.objects.get(id=id)
+    posts = Posts.objects.filter(hood=id)
+    
+    context = {
+        "posts" : posts,
+        "hood" : hood
+    }
+    
+    return render(request, "all_posts.html", context)
 
 
     
