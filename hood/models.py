@@ -73,6 +73,32 @@ class Business(models.Model):
     @classmethod
     def find_business(cls, name):
         return cls.objects.filter(name__icontains=name).all()
+    
+    
+class Posts(models.Model):
+    alerts = (
+        ("insecurity", "insecurity"),
+        ("death", "death"),
+        ("advertisement", "advertisement"),
+        ("fundraising", "fundraising"),
+        ("general information", "general information"),
+        ("wedding/pre-wedding", "wedding/pre-wedding"),
+        ("hood personnel", "hood personnel")
+        )    
+    type = models.CharField(choices = alerts, blank=True, max_length=200)
+    owner = models.ForeignKey('Profile', on_delete=models.CASCADE, blank=True)
+    hood = models.ForeignKey('NeighbourHood', on_delete=models.CASCADE)
+    description = models.TextField(max_length=500, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return str(self.type)
+    
+    def save_post(self):
+        self.save()
+        
+    def delete_post(self):
+        self.delete()    
    
             
     
