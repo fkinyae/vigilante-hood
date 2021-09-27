@@ -47,8 +47,10 @@ class NeighbourHood(models.Model):
         self.delete()
         
     @classmethod
-    def find_neighborhood(cls, neighborhood_id):
-        return cls.objects.filter(id=neighborhood_id)
+    def find_neighborhood(cls, search_term):
+        return cls.objects.filter(name__icontains=search_term)
+    
+    
     
 class Business(models.Model):
     name = models.CharField(max_length=200,blank=True)
@@ -71,8 +73,9 @@ class Business(models.Model):
         return cls.objects.update(id)
         
     @classmethod
-    def find_business(cls, name):
-        return cls.objects.filter(name__icontains=name).all()
+    def find_business(cls, search_term):
+        return cls.objects.filter(name__icontains=search_term).all()
+    
     
     
 class Posts(models.Model):
