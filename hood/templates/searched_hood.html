@@ -1,0 +1,51 @@
+{% load bootstrap4 %}
+{% load static %}
+
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<body>
+  <div id="row">
+    <a href="{% url 'hood'  %}" class="btn btn-info new_hood">New NeighbourHood</a>
+  </div>
+  <div class="container">
+   
+    <div class="details">
+     
+      <div class="row">
+        {% for searched_hood in searched_hoods %}
+        <div class="card">
+          <img src="{{hood.hood_pic.url}}" class="w-100 border-bottom" alt="...">
+          <div class="card-body">
+              <h5 class="card-title text-center">NeighbourHood:</h5>
+              <p class="card-text text-center">{{searched_hood.name}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item"><span  class="item_title">Location   :  </span>  <span>{{searched_hood.locality}}</span>
+              </li>
+              <li class="list-group-item"><span class="item_title" >Total Occupants   :  </span>  <span>{{searched_hood.occupants_count}}</span>
+              </li>
+          </ul>
+          <div class="card-body">
+              <a href="{% url 'all_posts' hood.id %}" class="card-link btn btn-info" id="join_btn">Join {{searched_hood.name}}</a>
+              
+          </div>
+      
+
+    </div>
+    {% endfor  %}
+
+    </div>
+    </div>
+
+
+  </div>
+</body>
+{% endblock %}
+
+
