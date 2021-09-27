@@ -201,6 +201,24 @@ def all_posts(request, id):
     
     return render(request, "all_posts.html", context)
 
+def search_hoods(request):
+    
+    hoods = NeighbourHood.objects.all()
+
+    
+    if 'hood' in request.GET and request.GET["hood"]:
+        search_term = request.GET.get("hood")
+        searched_hoods = NeighbourHood.find_neighborhood(search_term)
+        message = f"{search_term}"
+        
+        return render(request, 'searched_hood.html', {"message":message, "searched_hoods":searched_hoods, "hoods":hoods})
+    
+    else:
+        message ="You haven't searched for any term"
+        return render(request, 'searched_hood.html',{"message":message})
+        
+
+
 
     
 
